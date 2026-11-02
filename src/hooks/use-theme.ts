@@ -3,8 +3,8 @@
  * https://docs.expo.dev/guides/color-schemes/
  */
 
-import {Colors, type Theme} from '@/constants/theme'
-import {useColorScheme} from '@/hooks/use-color-scheme'
+import { Colors, type Theme } from '@/constants/theme'
+import { useColorScheme } from '@/hooks/use-color-scheme'
 
 export function useTheme(): Theme {
   return Colors[useColorScheme()]
