@@ -1,27 +1,27 @@
 import type { ReactElement } from 'react'
-import { Appearance, StyleSheet, Switch, Text, View } from 'react-native'
+import { Switch, Text, View } from 'react-native'
 
-import { Spacing } from '@/constants/theme'
-import { useColorScheme } from '@/hooks/use-color-scheme'
-import { useTheme } from '@/hooks/use-theme'
+import { createStyles } from '@/helper/create-style'
+import useThemeContext from '@/context/theme-context'
+
+const useStyles = createStyles(({ spacing, color }) => ({
+  row: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  label: { fontSize: 12, color: color.textMuted },
+}))
 
 export function ThemeToggle(): ReactElement {
-  const theme = useTheme()
-  const scheme = useColorScheme()
+  const { styles } = useStyles()
+  const { theme, preference, setPreference } = useThemeContext()
 
   return (
     <View style={styles.row}>
-      <Text style={[styles.label, { color: theme.textMuted }]}>{scheme === 'dark' ? 'Dark' : 'Light'}</Text>
+      <Text style={styles.label}>{preference === 'dark' ? 'Dark' : 'Light'}</Text>
       <Switch
-        value={scheme === 'dark'}
-        onValueChange={(isDark) => Appearance.setColorScheme(isDark ? 'dark' : 'light')}
-        trackColor={{ false: theme.border, true: theme.primary }}
+        accessibilityLabel="Dark mode"
+        value={preference === 'dark'}
+        onValueChange={(isDark) => setPreference(isDark ? 'dark' : 'light')}
+        trackColor={{ false: theme.color.border, true: theme.color.primary }}
       />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', gap: Spacing.sm },
-  label: { fontSize: 12 },
-})

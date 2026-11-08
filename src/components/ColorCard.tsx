@@ -1,8 +1,7 @@
 import type { ReactElement } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 
-import { Radius, Spacing } from '@/constants/theme'
-import { useTheme } from '@/hooks/use-theme'
+import { createStyles } from '@/helper/create-style'
 
 type ColorCardProps = {
   label: string
@@ -10,37 +9,41 @@ type ColorCardProps = {
   color: string
 }
 
-export function ColorCard({ label, value, color }: ColorCardProps): ReactElement {
-  const theme = useTheme()
-
-  return (
-    <View style={[styles.card, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-      <View style={[styles.swatch, { backgroundColor: color }]} />
-      <View style={styles.meta}>
-        <Text style={[styles.label, { color: theme.text }]}>{label}</Text>
-        <Text style={[styles.value, { color: theme.textMuted }]}>{value}</Text>
-      </View>
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({
+const useStyles = createStyles(({ spacing, radius, color }) => ({
   card: {
     overflow: 'hidden',
-    borderRadius: Radius.md,
+    borderRadius: radius.md,
     borderWidth: 1,
+    backgroundColor: color.surface,
+    borderColor: color.border,
   },
   swatch: {
     height: 56,
   },
   meta: {
-    padding: Spacing.sm,
+    padding: spacing.sm,
   },
   label: {
     fontSize: 12,
+    color: color.text,
   },
   value: {
     fontSize: 10,
     fontVariant: ['tabular-nums'],
+    color: color.textMuted,
   },
-})
+}))
+
+export function ColorCard({ label, value, color }: ColorCardProps): ReactElement {
+  const { styles } = useStyles()
+
+  return (
+    <View style={styles.card}>
+      <View style={[styles.swatch, { backgroundColor: color }]} />
+      <View style={styles.meta}>
+        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.value}>{value}</Text>
+      </View>
+    </View>
+  )
+}

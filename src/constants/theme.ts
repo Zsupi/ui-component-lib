@@ -14,7 +14,6 @@ export const Colors = {
     primary: '#6BA300',
     onPrimary: '#14160F',
     destructive: '#EE343B',
-    // Categorical palette (slightly deepened for AA contrast on light surfaces)
     lime: '#6BA300',
     orange: '#E45A1A',
     blue: '#1A7FCC',
@@ -42,7 +41,7 @@ export const Colors = {
   },
 } as const
 
-export type Theme = (typeof Colors)['light'] | (typeof Colors)['dark']
+export type Color = (typeof Colors)['light'] | (typeof Colors)['dark']
 
 export const Spacing = {
   xs: 4,
@@ -107,8 +106,8 @@ export const Shadows = {
       shadowRadius: 16,
       elevation: 12,
     },
-    glow: (color: keyof Theme) => ({
-      shadowColor: color,
+    glow: (color: keyof Color) => ({
+      shadowColor: Colors.light[color],
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 0.45,
       shadowRadius: 8,
@@ -137,8 +136,8 @@ export const Shadows = {
       shadowRadius: 16,
       elevation: 12,
     },
-    glow: (color: keyof Theme) => ({
-      shadowColor: color,
+    glow: (color: keyof Color) => ({
+      shadowColor: Colors.dark[color],
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 0.45,
       shadowRadius: 8,
@@ -148,3 +147,19 @@ export const Shadows = {
 } as const
 
 export type Shadow = (typeof Shadows)['light'] | (typeof Shadows)['dark']
+
+export type Preference = 'light' | 'dark' | 'auto'
+export type ResolvedPreference = 'light' | 'dark'
+
+export type Theme = {
+  name: ResolvedPreference
+  color: Color
+  radius: typeof Radius
+  font: {
+    family: typeof FontFamily
+    size: typeof FontSize
+    style: typeof TextStyles
+  }
+  shadow: Shadow
+  spacing: typeof Spacing
+}
