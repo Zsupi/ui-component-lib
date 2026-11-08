@@ -41,7 +41,7 @@ describe('ThemeProvider', () => {
     expect(screen.getByText('light')).toBeTruthy()
 
     useColorScheme.mockReturnValue('dark')
-    rerender(<ThemeProviderHarness />)
+    await rerender(<ThemeProviderHarness />)
 
     expect(await screen.findByText('dark')).toBeTruthy()
   })
@@ -58,11 +58,11 @@ describe('ThemeProvider', () => {
     const useColorScheme = jest.spyOn(ReactNative, 'useColorScheme').mockReturnValue('dark')
 
     const { rerender } = await render(<ThemeProviderHarness />)
-    fireEvent.press(screen.getByRole('button', { name: 'Choose light' }))
+    await fireEvent.press(screen.getByRole('button', { name: 'Choose light' }))
     expect(await screen.findByText('light')).toBeTruthy()
 
     useColorScheme.mockReturnValue('dark')
-    rerender(<ThemeProviderHarness />)
+    await rerender(<ThemeProviderHarness />)
 
     expect(screen.getByText('light')).toBeTruthy()
   })
@@ -71,7 +71,7 @@ describe('ThemeProvider', () => {
     jest.spyOn(ReactNative, 'useColorScheme').mockReturnValue('light')
 
     await render(<ThemeProviderHarness />)
-    fireEvent.press(screen.getByRole('button', { name: 'Choose dark' }))
+    await fireEvent.press(screen.getByRole('button', { name: 'Choose dark' }))
 
     expect(await screen.findByText('dark')).toBeTruthy()
   })

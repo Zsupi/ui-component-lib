@@ -38,7 +38,7 @@ describe('ThemeToggle', () => {
     jest.spyOn(ReactNative, 'useColorScheme').mockReturnValue('dark')
 
     await render(<ThemeToggleHarness />)
-    fireEvent(screen.getByRole('switch', { name: 'Dark mode' }), 'valueChange', false)
+    await fireEvent(screen.getByRole('switch', { name: 'Dark mode' }), 'valueChange', false)
 
     expect(await screen.findByText('Light')).toBeTruthy()
     expect(await screen.findByText('light')).toBeTruthy()
@@ -49,7 +49,7 @@ describe('ThemeToggle', () => {
     jest.spyOn(ReactNative, 'useColorScheme').mockReturnValue('light')
 
     await render(<ThemeToggleHarness />)
-    fireEvent(screen.getByRole('switch', { name: 'Dark mode' }), 'valueChange', true)
+    await fireEvent(screen.getByRole('switch', { name: 'Dark mode' }), 'valueChange', true)
 
     expect(await screen.findByText('Dark')).toBeTruthy()
     expect(await screen.findByText('dark')).toBeTruthy()
