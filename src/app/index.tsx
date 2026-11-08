@@ -30,8 +30,12 @@ export default function Index() {
     }
   }, [loaded, error])
 
-  if (error || !loaded) {
-    return <ErrorScreen title="Couldn't load fonts" message={error ? error.message : 'Fonts are still loading'} />
+  if (error) {
+    return <ErrorScreen title="Couldn't load fonts" message={error.message} />
+  }
+
+  if (!loaded) {
+    return null
   }
 
   return (

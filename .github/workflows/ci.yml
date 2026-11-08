@@ -31,6 +31,9 @@ jobs:
       - name: Generate expo-env.d.ts
         run: echo '/// <reference types="expo/types" />' > expo-env.d.ts
 
+      - name: Tests
+        run: npm test -- --ci
+
       - name: Typecheck (tsc)
         run: npm run typecheck
 

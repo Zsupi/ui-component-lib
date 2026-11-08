@@ -25,6 +25,16 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## Tests
+
+Run the unit tests with:
+
+```bash
+npm test
+```
+
+Tests use Jest with the Expo preset and React Native Testing Library.
+
 ## Get a fresh project
 
 When you're ready, run:
