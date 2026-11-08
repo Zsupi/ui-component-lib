@@ -124,6 +124,8 @@ module.exports = [
       ...jestPlugin.configs.recommended.rules,
       ...testingLibraryPlugin.configs.react.rules,
 
+      // React Native Testing Library 14 event helpers are async; this rule still treats them as sync.
+      'testing-library/no-await-sync-events': 'off',
       'testing-library/no-node-access': 'off',
       'testing-library/prefer-user-event-setup': 'error',
     },
